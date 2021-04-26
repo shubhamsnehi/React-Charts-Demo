@@ -1,4 +1,4 @@
-#React Charts Demo
+# React Charts Demo
 
 ## Getting Started with Create React App
 
