@@ -3,27 +3,58 @@ import { Line } from 'react-chartjs-2';
 import './Linechart.css';
 
 function Linechart() {
+
+  var delayed
+
   return (
     <div>
-      <Line
+      <Line className="bg-light"
+        className="bg-light"
         data={{
-          labels: ['Red', 'Blue','Yellow', 'Green', 'Voilet', 'Orange'],
+          labels: ['May', 'June', 'July', 'August', 'Sept', 'October'],
           datasets: [
             {
-              label: 'Dataset 1',
-              data: [12, 9, 3, 18, 12, 23],
+              label: 'Data Used',
+              data: [2, 3.4, 4, 5, 7.5, 6],
               borderColor: 'rgba(255, 99, 132, 0.5)',
               backgroundColor: 'rgba(255, 99, 132, 1)',
             },
-            {
-              label: 'Dataset 2',
-              data: [22, 4, 13, 15, 12, 13],
-              borderColor: 'rgba(54, 162, 235, 0.5)',
-              backgroundColor: 'rgba(54, 162, 235, 1)',
-            }
+            // {
+            //   label: 'Dataset 2',
+            //   data: [22, 4, 13, 15, 12, 13],
+            //   borderColor: 'rgba(54, 162, 235, 0.5)',
+            //   backgroundColor: 'rgba(54, 162, 235, 1)',
+            // }
           ]
         }}
         height={300}
+        options={{
+          maintainAspectRatio: false,
+          reaponsive: true,
+          animation: {
+            onComplete: () => {
+              delayed = true;
+            },
+            delay: (context) => {
+              let delay = 0;
+              if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                delay = context.dataIndex * 500 + context.datasetIndex * 500;
+              }
+              return delay;
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            },
+
+          }
+        }}
       />
     </div>
   );
